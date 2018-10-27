@@ -1,0 +1,29 @@
+module.exports = {
+  db: {
+    username: 'user',
+    password: 'password',
+    host: 'localhost',
+    port: '3306',
+    database: 'hashtag_wall'
+  },
+  api: {
+    port: 8080,
+    username: 'admin',
+    password: 'password'
+  },
+  hashtags: {
+    instagram: 'helsinki',
+    twitter: 'helsinki'
+  },
+  instagram: {
+    update_interval: 30000
+  },
+  twitter: {
+    consumer_key: "twitter consumer key",
+    consumer_secret: "twitter consumer secret",
+    access_token: "twitter access token",
+    access_token_secret: "twitter access token secret"
+  },
+  POST_TYPE_INSTAGRAM: 1,
+  POST_TYPE_TWITTER: 2,
+} 

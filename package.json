@@ -1,0 +1,35 @@
+{
+  "name": "hashtag-wall-server",
+  "version": "1.0.0",
+  "description": "Hashtag Wall Server",
+  "main": "app.js",
+  "dependencies": {
+    "async": "^2.6.1",
+    "cors": "^2.8.4",
+    "express": "^4.16.4",
+    "express-basic-auth": "^1.1.6",
+    "express-handlebars": "^3.0.0",
+    "handlebars": "^4.0.12",
+    "md5": "^2.2.1",
+    "mongoose": "^5.3.7",
+    "mysql2": "^1.6.1",
+    "request": "^2.88.0",
+    "request-promise": "^4.2.2",
+    "sequelize": "^4.41.0",
+    "twit": "^2.2.11"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:Krisseck/Hashtag-Wall-Server.git"
+  },
+  "author": {
+    "name": "Kristian Polso",
+    "email": "kristian@polso.info",
+    "url": "https://polso.info"
+  },
+  "license": "MIT"
+}
