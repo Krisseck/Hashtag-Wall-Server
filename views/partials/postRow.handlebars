@@ -1,7 +1,8 @@
 <tr>
-  <td>{{ createdAt }}</td>
-  <td>{{ username }}</td>
-  <td>{{ caption }}</td>
-  <td>{{ type }}</td>
-  <td><a href="/admin/delete/{{ id }}">Delete</a></td>
+  <td class="created">{{ formatDate created_at }}</td>
+  <td class="type">{{ postType type }}</td>
+  <td class="user">{{ user.username }}</td>
+  <td class="image">{{#if image}}<a href="{{ image }}" target="_blank"><img src="{{ image }}"></a>{{/if}}</td>
+  <td class="caption">{{ caption }}</td>
+  <td class="actions"><a href="/admin/delete/{{ id }}" class="btn btn-danger">Delete</a></td>
 </tr>

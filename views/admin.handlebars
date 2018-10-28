@@ -1,4 +1,13 @@
-<table class="table">
+<h1>Hashtag Wall Admin</h1>
+
+<table class="table" id="posts-table">
+  <tr>
+    <th>Created</th>
+    <th>Type</th>
+    <th>User</th>
+    <th>Content</th>
+    <th>Actions</th>
+  </tr>
   {{#each posts}}
     {{> postRow }}
   {{/each}}

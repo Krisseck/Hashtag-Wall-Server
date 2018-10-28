@@ -5,7 +5,6 @@ var basicAuth = require('express-basic-auth');
 var exphbs = require('express-handlebars');
 var app = express();
 
-
 var config = require('./config');
 
 app.use(cors());
@@ -17,7 +16,26 @@ var basicAuthOptions = {
 
 basicAuthOptions.users[config.api.username] = config.api.password;
 
-app.engine('handlebars', exphbs({defaultLayout: 'admin'}));
+var hbs = exphbs.create({
+  defaultLayout: 'admin',
+  helpers: {
+    formatDate: function(date) {
+      return date.toLocaleString('en-US');
+    },
+    postType: function(type) {
+      switch(type) {
+        case 1:
+          return 'Instagram';
+        break;
+        case 2:
+          return 'Twitter';
+        break;
+      }
+    }
+  }
+});
+
+app.engine('handlebars', hbs.engine);
 app.set('view engine', 'handlebars');
 
 var databaseModels = require('./database-models');
@@ -34,7 +52,10 @@ app.get('/posts', function (req, res) {
   Post.findAll({
     limit: 30,
     order: [
-      ['createdAt', 'DESC']
+      ['created_at', 'DESC']
+    ],
+    include: [
+      { model: User }
     ]
   })
   .then(function(posts) {
@@ -56,7 +77,10 @@ app.get('/posts/:time', function (req, res) {
       }
     },
     order: [
-      ['createdAt', 'DESC']
+      ['created_at', 'DESC']
+    ],
+    include: [
+      { model: User }
     ]
   })
   .then(function(posts) {
@@ -71,7 +95,10 @@ app.get('/admin', basicAuth(basicAuthOptions), function (req, res) {
 
   Post.findAll({
     order: [
-      ['createdAt', 'DESC']
+      ['created_at', 'DESC']
+    ],
+    include: [
+      { model: User }
     ]
   })
   .then(function(posts) {

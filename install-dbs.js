@@ -2,10 +2,10 @@ var config = require('./config');
 
 var databaseModels = require('./database-models');
 
-databaseModels.Post.sync({force: true})
+databaseModels.User.sync({force: true})
 .then(function() {
 
-  return databaseModels.User.sync({force: true});
+  return databaseModels.Post.sync({force: true});
 
 })
 .then(function() {

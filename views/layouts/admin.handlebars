@@ -2,17 +2,44 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <title>Admin</title>
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
 </head>
 <body>
 
-{{{body}}}
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-md-12">
+        {{{body}}}
+      </div>
+    </div>
+  </div>
 
 <style>
 
-  table {
-    max-width: 100%;
+  td {
+    word-break: break-all;
+  }
+
+  #posts-table .created {
+    width: 14rem;
+  }
+
+  #posts-table .type {
+    width: 7rem;
+  }
+
+  #posts-table .user {
+    width: 10rem;
+  }
+
+  #posts-table .image img {
+    max-width: 4rem;
+  }
+
+  #posts-table .actions {
+    width: 8rem;
   }
 
 </body>

@@ -85,7 +85,7 @@ function updateSinglePost(item, callback) {
         source_id: item.node.id,
         link: 'https://instagram.com/p/' + item.node.shortcode,
         image: item.node.display_url,
-        createdAt: item.node.taken_at_timestamp * 1000,
+        created_at: item.node.taken_at_timestamp * 1000,
         caption: item.node.edge_media_to_caption.edges[0].node.text
       })
 
@@ -127,7 +127,7 @@ function updateSinglePost(item, callback) {
     } else {
 
       handledPost.update({
-        user: user.id
+        user_id: user.id
       });
 
       throw new Error('User already exists');
@@ -165,7 +165,7 @@ function updateSinglePost(item, callback) {
   .then(function(user) {
 
     return handledPost.update({
-      user: user.id
+      user_id: user.id
     });
 
   })

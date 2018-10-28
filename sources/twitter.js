@@ -51,7 +51,7 @@ function createTweet(tweet) {
     source_id: tweet.id_str,
     link: 'https://twitter.com/'+tweet.user.screen_name+'/status/'+tweet.id_str,
     image: image,
-    createdAt: postDate.getTime(),
+    created_at: postDate.getTime(),
     caption: tweet.text
   })
   .then(function(post) {
@@ -85,7 +85,7 @@ function createTweet(tweet) {
     } else {
 
       handledPost.update({
-        user: user.id
+        user_id: user.id
       });
 
       throw new Error('User already exists');
@@ -96,7 +96,7 @@ function createTweet(tweet) {
   .then(function(user) {
 
     return handledPost.update({
-      user: user.id
+      user_id: user.id
     });
 
   })
