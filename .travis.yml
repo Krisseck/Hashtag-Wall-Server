@@ -1,0 +1,5 @@
+language: node_js
+nvm: 
+  - 10.10.0
+services:
+  - mysql
