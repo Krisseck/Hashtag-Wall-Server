@@ -43,3 +43,6 @@ You can run these scripts with just `node app.js` and `node cron.js`, although I
 pm2 start app.js
 pm2 start cron.js
 ```
+
+## Contributing 
+[![contributions welcome](https://img.shields.io/badge/contributions-welcome-brightgreen.svg?style=flat)](https://github.com/dwyl/esta/issues)
