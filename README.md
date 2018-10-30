@@ -1,5 +1,7 @@
 # Hashtag Wall Server
 
+![dependencies](https://david-dm.org/Krisseck/Hashtag-Wall-Server.svg)
+
 Hashtag wall that displays posts from several social media sources. You can specify the hashtag to monitor and the server collects these posts.
 
 This is the server component of the wall. It's a node.js express server that provides a JSON API for displaying the social media posts.
