@@ -10,6 +10,7 @@ var databaseModels = require('../database-models');
 
 var Post = databaseModels.Post;
 var User = databaseModels.User;
+var DeletedPost = databaseModels.DeletedPost;
 
 var chai = require('chai');
 var chaiHttp = require('chai-http');
@@ -36,6 +37,11 @@ before('setup the db', function() {
   .then(function() {
 
     return databaseModels.Post.sync({force: true});
+
+  })
+  .then(function() {
+
+    return databaseModels.DeletedPost.sync({force: true});
 
   });
 

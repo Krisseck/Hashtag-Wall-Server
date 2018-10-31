@@ -26,7 +26,16 @@ var User = sequelize.define('user', {
 
 Post.User = Post.belongsTo(User);
 
+var DeletedPost = sequelize.define('deleted_post', {
+  type: Sequelize.INTEGER(1),
+  source_id: Sequelize.BIGINT
+}, {
+  charset: 'utf8mb4',
+  underscored: true
+});
+
 module.exports = {
   Post: Post,
-  User: User
+  User: User,
+  DeletedPost: DeletedPost
 }

@@ -44,6 +44,7 @@ var databaseModels = require('./database-models');
 
 var Post = databaseModels.Post;
 var User = databaseModels.User;
+var DeletedPost = databaseModels.DeletedPost;
 
 app.get('/', function (req, res) {
   res.send('Hello World!');
@@ -142,10 +143,23 @@ app.get('/admin', basicAuth(basicAuthOptions), function (req, res) {
 
 app.get('/admin/delete/:id', basicAuth(basicAuthOptions), function (req, res) {
 
+  var postToBeDeleted = {};
+
   Post.findById(req.params.id)
   .then(function(post) {
-    return post.destroy();
+
+    postToBeDeleted = post;
+
+    return DeletedPost.create({
+      type: post.type,
+      source_id: post.source_id
+    });
+
   })
+  .then(function() {
+    return postToBeDeleted.destroy();
+  })
+  
   .then(function() {
     res.redirect("/admin");
   });

@@ -4,6 +4,7 @@ var databaseModels = require('../database-models');
 
 var Post = databaseModels.Post;
 var User = databaseModels.User;
+var DeletedPost = databaseModels.DeletedPost;
 
 var Twit = require('twit');
 
@@ -46,13 +47,32 @@ function createTweet(tweet) {
 
   }
 
-  Post.create({
-    type: config.POST_TYPE_TWITTER,
-    source_id: tweet.id_str,
-    link: 'https://twitter.com/'+tweet.user.screen_name+'/status/'+tweet.id_str,
-    image: image,
-    created_at: postDate.getTime(),
-    caption: tweet.text
+  // Check if post is in deleted_posts
+
+  DeletedPost.findOne({
+    where: {
+      type: config.POST_TYPE_TWITTER,
+      source_id: tweet.id_str
+    }
+  })
+  .then(function(post) {
+
+    if(!post) {
+
+      return Post.create({
+        type: config.POST_TYPE_TWITTER,
+        source_id: tweet.id_str,
+        link: 'https://twitter.com/'+tweet.user.screen_name+'/status/'+tweet.id_str,
+        image: image,
+        created_at: postDate.getTime(),
+        caption: tweet.text
+      })
+
+    } else {
+
+      throw new Error('Post is in deleted_posts');
+
+    }
   })
   .then(function(post) {
 

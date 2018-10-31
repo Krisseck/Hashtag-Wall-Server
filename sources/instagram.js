@@ -8,6 +8,7 @@ var databaseModels = require('../database-models');
 
 var Post = databaseModels.Post;
 var User = databaseModels.User;
+var DeletedPost = databaseModels.DeletedPost;
 
 var rhx_gis = null;
 
@@ -70,10 +71,27 @@ module.exports = {
 
 function updateSinglePost(item, callback) {
 
-  Post.findOne({
+  // Check if post is in deleted_posts
+
+  DeletedPost.findOne({
     where: {
       type: config.POST_TYPE_INSTAGRAM,
       source_id: item.node.id
+    }
+  })
+  .then(function(post) {
+
+    if(!post) {
+      return Post.findOne({
+        where: {
+          type: config.POST_TYPE_INSTAGRAM,
+          source_id: item.node.id
+        }
+      });
+    } else {
+
+      throw new Error('Post exists in deleted_posts');
+
     }
   })
   .then(function(post) {
@@ -87,7 +105,7 @@ function updateSinglePost(item, callback) {
         image: item.node.display_url,
         created_at: item.node.taken_at_timestamp * 1000,
         caption: item.node.edge_media_to_caption.edges[0].node.text
-      })
+      });
 
     } else {
 
