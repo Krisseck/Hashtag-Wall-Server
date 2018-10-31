@@ -1,6 +1,6 @@
 # Hashtag Wall Server
 
-![dependencies](https://david-dm.org/Krisseck/Hashtag-Wall-Server.svg) ![travis-ci](https://travis-ci.org/Krisseck/Hashtag-Wall-Server.svg?branch=master)
+![dependencies](https://david-dm.org/Krisseck/Hashtag-Wall-Server.svg) ![travis-ci](https://travis-ci.org/Krisseck/Hashtag-Wall-Server.svg?branch=master) [![contributions welcome](https://img.shields.io/badge/contributions-welcome-brightgreen.svg?style=flat)](https://github.com/Krisseck/Hashtag-Wall-Server/issues)
 
 Hashtag wall that displays posts from several social media sources. You can specify the hashtag to monitor and the server collects these posts.
 
@@ -43,6 +43,3 @@ You can run these scripts with just `node app.js` and `node cron.js`, although I
 pm2 start app.js
 pm2 start cron.js
 ```
-
-## Contributing 
-[![contributions welcome](https://img.shields.io/badge/contributions-welcome-brightgreen.svg?style=flat)](https://github.com/dwyl/esta/issues)
