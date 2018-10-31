@@ -23,7 +23,7 @@ This is the server component of the wall. It's a node.js express server that pro
 
 Run `yarn`to install dependencies
 
-Copy `config.example.js` to `config.js` and change the values as needed.
+Copy `config.js.example` to `config.js` and change the values as needed.
 
 To install database tables, run:
 
