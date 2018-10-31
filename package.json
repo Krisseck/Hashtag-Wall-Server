@@ -10,6 +10,7 @@
     "express-basic-auth": "^1.1.6",
     "express-handlebars": "^3.0.0",
     "handlebars": "^4.0.12",
+    "handlebars-paginate": "^0.1.0",
     "md5": "^2.2.1",
     "mongoose": "^5.3.7",
     "mysql2": "^1.6.1",

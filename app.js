@@ -3,6 +3,7 @@ var express = require('express');
 var cors = require('cors');
 var basicAuth = require('express-basic-auth');
 var exphbs = require('express-handlebars');
+var paginate = require('handlebars-paginate');
 var app = express();
 
 var config = require('./config');
@@ -31,7 +32,8 @@ var hbs = exphbs.create({
           return 'Twitter';
         break;
       }
-    }
+    },
+    paginate: paginate
   }
 });
 
@@ -93,18 +95,45 @@ app.get('/posts/:time', function (req, res) {
 
 app.get('/admin', basicAuth(basicAuthOptions), function (req, res) {
 
-  Post.findAll({
-    order: [
-      ['created_at', 'DESC']
-    ],
-    include: [
-      { model: User }
-    ]
+  var totalPosts = 0;
+
+  var postsPerPage = 10;
+
+  var currentPage = 1;
+
+  var offset = 0;
+
+  Post.count()
+  .then(function(postsCount) {
+
+    totalPosts = postsCount;
+
+    if(typeof req.query.p != 'undefined') {
+      currentPage = req.query.p;
+    }
+
+    offset = (currentPage - 1) * postsPerPage;
+
+    return Post.findAll({
+      order: [
+        ['created_at', 'DESC']
+      ],
+      offset: offset,
+      limit: postsPerPage,
+      include: [
+        { model: User }
+      ]
+    });
+
   })
   .then(function(posts) {
 
     res.render('admin', {
-      posts: posts
+      posts: posts,
+      pagination: {
+        page: currentPage,
+        pageCount: Math.ceil(totalPosts / postsPerPage)
+      }
     });
 
   });

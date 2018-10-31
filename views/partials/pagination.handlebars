@@ -1,0 +1,19 @@
+<div class="pagination">
+  <ul class="pagination">
+    {{#paginate pagination type="first"}}
+      <li class="page-item {{#if disabled}}disabled{{/if}}"><a class="page-link" href="?p={{n}}">First</a></li>
+    {{/paginate}}
+    {{#paginate pagination type="previous"}}
+      <li class="page-item {{#if disabled}}disabled{{/if}}"><a class="page-link" href="?p={{n}}">Prev</a></li>
+    {{/paginate}}
+    {{#paginate pagination type="middle" limit="7"}}
+      <li class="page-item {{#if disabled}}disabled{{/if}}"><a class="page-link" href="?p={{n}}">{{n}}</a></li>
+    {{/paginate}}
+    {{#paginate pagination type="next"}}
+      <li class="page-item {{#if disabled}}disabled{{/if}}"><a class="page-link" href="?p={{n}}">Next</a></li>
+    {{/paginate}}
+    {{#paginate pagination type="last"}}
+      <li class="page-item {{#if disabled}}disabled{{/if}}"><a class="page-link" href="?p={{n}}">Last</a></li>
+    {{/paginate}}
+  </ul>
+</div> 
