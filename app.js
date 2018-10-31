@@ -131,3 +131,5 @@ var server = app.listen(config.api.port, function () {
   console.log('App listening at http://%s:%s', host, port);
 
 });
+
+module.exports = app;

@@ -1,5 +1,6 @@
 language: node_js
-nvm: 
-  - 10.10.0
 services:
   - mysql
+before_install:
+  - mysql -e 'CREATE DATABASE hashtag_posts_test;'
+  - cp config.js.travis config.js

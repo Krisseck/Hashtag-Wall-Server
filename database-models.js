@@ -1,7 +1,5 @@
 var Sequelize = require('sequelize');
 
-var config = require('./config');
-
 var sequelize = require('./db').db();
 
 var Post = sequelize.define('post', {
