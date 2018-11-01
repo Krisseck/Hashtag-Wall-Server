@@ -118,6 +118,8 @@ function updateSinglePost(item, callback) {
 
     handledPost = post;
 
+    console.log('Created new Instagram post:', post.link);
+
     // Make sure the corresponding user is created
 
     return User.findOne({

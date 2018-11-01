@@ -12,7 +12,8 @@ exports.db = function() {
       dialect: 'mysql',
       host: config.db.host,
       port: config.db.ports,
-      logging: false
+      logging: false,
+      operatorsAliases: false
     });
 
   }

@@ -76,6 +76,8 @@ function createTweet(tweet) {
   })
   .then(function(post) {
 
+    console.log('Created new Twitter post:', post.link);
+
     handledPost = post;
 
     // Make sure the corresponding user is created
