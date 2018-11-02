@@ -10,6 +10,8 @@ var config = require('./config');
 
 app.use(cors());
 
+app.use(express.urlencoded({ extended: true }));
+
 var basicAuthOptions = {
   users: {},
   challenge: true
@@ -45,6 +47,7 @@ var databaseModels = require('./database-models');
 var Post = databaseModels.Post;
 var User = databaseModels.User;
 var DeletedPost = databaseModels.DeletedPost;
+var IgnoredUser = databaseModels.IgnoredUser;
 
 app.get('/', function (req, res) {
   res.send('Hello World!');
@@ -134,6 +137,9 @@ app.get('/admin', basicAuth(basicAuthOptions), function (req, res) {
       pagination: {
         page: currentPage,
         pageCount: Math.ceil(totalPosts / postsPerPage)
+      },
+      navActive: {
+        admin: true
       }
     });
 
@@ -145,7 +151,7 @@ app.get('/admin/delete/:id', basicAuth(basicAuthOptions), function (req, res) {
 
   var postToBeDeleted = {};
 
-  Post.findById(req.params.id)
+  Post.findByPk(req.params.id)
   .then(function(post) {
 
     postToBeDeleted = post;
@@ -162,6 +168,100 @@ app.get('/admin/delete/:id', basicAuth(basicAuthOptions), function (req, res) {
   
   .then(function() {
     res.redirect("/admin");
+  });
+
+});
+
+app.get('/admin/ignored-users', basicAuth(basicAuthOptions), function (req, res) {
+
+  var ignoredUsers = [];
+
+  var allUsers = [];
+
+  IgnoredUser.findAll({
+    order: [
+      ['created_at', 'DESC']
+    ],
+    include: [
+      { model: User }
+    ]
+  })
+  .then(function(users) {
+
+    ignoredUsers = users;
+
+    return User.findAll({
+      order: [
+        ['type', 'ASC'],
+        ['username', 'ASC']
+      ],
+    });
+
+  })
+  .then(function(users) {
+
+    allUsers = users;
+
+    res.render('ignored-users', {
+      ignoredUsers: ignoredUsers,
+      allUsers: allUsers,
+      navActive: {
+        ignoredUsers: true
+      }
+    });
+
+  });
+
+});
+
+app.get('/admin/unignore-user/:id', basicAuth(basicAuthOptions), function (req, res) {
+
+  IgnoredUser.findByPk(req.params.id)
+  .then(function(user) {
+
+    return user.destroy();
+
+  })
+  .then(function() {
+    res.redirect("/admin/ignored-users");
+  });
+
+});
+
+app.post('/admin/ignore-user', basicAuth(basicAuthOptions), function (req, res) {
+
+  var theUser = {};
+
+  User.findByPk(req.body.user)
+  .then(function(user) {
+
+    theUser = user;
+
+    return IgnoredUser.create({
+      type: user.type,
+      source_id: user.source_id
+    });
+
+  })
+  .then(function() {
+
+    if(req.body.delete_posts) {
+
+      return Post.destroy({
+        where: {
+          user_id: theUser.id
+        }
+      });
+
+    } else {
+
+      return 1;
+
+    }
+
+  })
+  .then(function() {
+    res.redirect("/admin/ignored-users");
   });
 
 });

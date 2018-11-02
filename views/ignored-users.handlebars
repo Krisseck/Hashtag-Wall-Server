@@ -1,0 +1,30 @@
+<table class="table" id="ignored-users-table">
+  <tr>
+    <th>Timestamp</th>
+    <th>Type</th>
+    <th>User</th>
+    <th>Actions</th>
+  </tr>
+  {{#each ignoredUsers }}
+    {{> ignoredUserRow }}
+  {{/each}}
+</table>
+
+<h2>Ignore user</h2>
+
+<form action="/admin/ignore-user" method="POST">
+  <div class="form-group">
+    <label for="user">User</label>
+    <select class="form-control" id="user" name="user" required>
+      <option value="">--</option>
+      {{#each allUsers }}
+        {{> userSelectRow }}
+      {{/each}}
+    </select>
+  </div>
+  <div class="form-group form-check">
+    <input type="checkbox" class="form-check-input" id="delete_posts" name="delete_posts">
+    <label class="form-check-label" for="delete_posts">Delete existing posts</label>
+  </div>
+  <button type="submit" class="btn btn-primary">Submit</button>
+</form>

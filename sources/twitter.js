@@ -5,6 +5,7 @@ var databaseModels = require('../database-models');
 var Post = databaseModels.Post;
 var User = databaseModels.User;
 var DeletedPost = databaseModels.DeletedPost;
+var IgnoredUser = databaseModels.IgnoredUser;
 
 var Twit = require('twit');
 
@@ -47,12 +48,31 @@ function createTweet(tweet) {
 
   }
 
-  // Check if post is in deleted_posts
+  // Check if user is set to be ignored
 
-  DeletedPost.findOne({
+  IgnoredUser.findOne({
     where: {
       type: config.POST_TYPE_TWITTER,
-      source_id: tweet.id_str
+      source_id: tweet.user.id
+    }
+  })
+  .then(function(user) {
+
+    if(!user) {
+
+      // Check if post is in deleted_posts
+
+      return DeletedPost.findOne({
+        where: {
+          type: config.POST_TYPE_TWITTER,
+          source_id: tweet.id_str
+        }
+      });
+
+    } else {
+
+      throw new Error('User set to be ignored');
+
     }
   })
   .then(function(post) {

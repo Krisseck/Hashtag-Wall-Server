@@ -34,8 +34,19 @@ var DeletedPost = sequelize.define('deleted_post', {
   underscored: true
 });
 
+var IgnoredUser = sequelize.define('ignored_user', {
+  type: Sequelize.INTEGER(1),
+  source_id: Sequelize.BIGINT
+}, {
+  charset: 'utf8mb4',
+  underscored: true
+});
+
+IgnoredUser.User = IgnoredUser.belongsTo(User, { foreignKey: 'source_id', targetKey: 'source_id' });
+
 module.exports = {
   Post: Post,
   User: User,
-  DeletedPost: DeletedPost
+  DeletedPost: DeletedPost,
+  IgnoredUser: IgnoredUser
 }

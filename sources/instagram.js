@@ -9,6 +9,7 @@ var databaseModels = require('../database-models');
 var Post = databaseModels.Post;
 var User = databaseModels.User;
 var DeletedPost = databaseModels.DeletedPost;
+var IgnoredUser = databaseModels.IgnoredUser;
 
 var rhx_gis = null;
 
@@ -71,23 +72,46 @@ module.exports = {
 
 function updateSinglePost(item, callback) {
 
-  // Check if post is in deleted_posts
+  // Check if the user is set to be ignored
 
-  DeletedPost.findOne({
+  IgnoredUser.findOne({
     where: {
       type: config.POST_TYPE_INSTAGRAM,
-      source_id: item.node.id
+      source_id: item.node.owner.id
+    }
+  })
+  .then(function(user) {
+
+    if(!user) {
+
+      // Check if post is in deleted_posts
+
+      return DeletedPost.findOne({
+        where: {
+          type: config.POST_TYPE_INSTAGRAM,
+          source_id: item.node.id
+        }
+      });
+    } else {
+
+      throw new Error('User set to be ignored');
+
     }
   })
   .then(function(post) {
 
     if(!post) {
+
+      // Check if post already existed in db
+
       return Post.findOne({
         where: {
           type: config.POST_TYPE_INSTAGRAM,
           source_id: item.node.id
         }
       });
+
+
     } else {
 
       throw new Error('Post exists in deleted_posts');

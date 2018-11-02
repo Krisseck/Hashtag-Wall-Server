@@ -20,6 +20,11 @@ sequelize.query('SET FOREIGN_KEY_CHECKS = 0', {raw: true})
 })
 .then(function() {
 
+  return databaseModels.IgnoredUser.sync({force: true});
+
+})
+.then(function() {
+
   console.log('Recreated DB tables');
 
   process.exit(0);
