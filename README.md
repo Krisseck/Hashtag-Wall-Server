@@ -10,11 +10,12 @@ This is the server component of the wall. It's a node.js express server that pro
 
 * Cron process that fetches the social media posts
 * Supports multiple social media platforms (currently Instagram & Twitter)
-* Admin interface for displaying and removing posts
+* Admin interface for displaying and deleting posts
+* Ignore specific user's posts
 
 ## Requirements
 
-* Tested with **Node.js v10.10.0**, should work with other 10.x versions aswell.
+* Tested with **Node.js v10.13.0 (LTS)**, should work with other 10.x versions aswell.
 * [Yarn](https://yarnpkg.com/)
 * MySQL-server
 
