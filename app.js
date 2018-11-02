@@ -181,9 +181,6 @@ app.get('/admin/ignored-users', basicAuth(basicAuthOptions), function (req, res)
   IgnoredUser.findAll({
     order: [
       ['created_at', 'DESC']
-    ],
-    include: [
-      { model: User }
     ]
   })
   .then(function(users) {
@@ -239,6 +236,7 @@ app.post('/admin/ignore-user', basicAuth(basicAuthOptions), function (req, res) 
 
     return IgnoredUser.create({
       type: user.type,
+      username: user.username,
       source_id: user.source_id
     });
 
