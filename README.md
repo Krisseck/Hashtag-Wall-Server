@@ -9,7 +9,9 @@ This is the server component of the wall. It's a node.js express server that pro
 ## Demo
 
 Client: http://hashtag.polso.info
+
 API: http://hashtag.polso.info:8080/posts
+
 Admin: http://hashtag.polso.info:8080/admin (username: admin, password: password)
 
 ## Features
