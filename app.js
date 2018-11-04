@@ -74,8 +74,6 @@ app.get('/posts', function (req, res) {
 
 app.get('/posts/:time', function (req, res) {
 
-  res.header('Access-Control-Allow-Origin', '*');
-
   Post.findAll({
     where: {
       createdAt: {
