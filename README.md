@@ -54,3 +54,7 @@ You can run these scripts with just `node app.js` and `node cron.js`, although I
 pm2 start app.js
 pm2 start cron.js
 ```
+
+## Hosting
+
+Need help with the project or looking for hosting? Contact me at kristian@polso.info
