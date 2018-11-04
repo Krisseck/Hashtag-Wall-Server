@@ -76,8 +76,8 @@ app.get('/posts/:time', function (req, res) {
 
   Post.findAll({
     where: {
-      createdAt: {
-        [Sequelize.Op.gt]: new Date(req.params.time * 1000)
+      created_at: {
+        [Sequelize.Op.gt]: new Date(parseInt(req.params.time))
       }
     },
     order: [
