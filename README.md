@@ -6,6 +6,12 @@ Hashtag wall that displays posts from several social media sources. You can spec
 
 This is the server component of the wall. It's a node.js express server that provides a JSON API for displaying the social media posts.
 
+## Demo
+
+Client: http://hashtag.polso.info
+API: http://hashtag.polso.info:8080/posts
+Admin: http://hashtag.polso.info:8080/admin (username: admin, password: password)
+
 ## Features
 
 * Cron process that fetches the social media posts
