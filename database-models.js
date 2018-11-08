@@ -28,7 +28,8 @@ Post.User = Post.belongsTo(User);
 
 var DeletedPost = sequelize.define('deleted_post', {
   type: Sequelize.INTEGER(1),
-  source_id: Sequelize.BIGINT
+  source_id: Sequelize.BIGINT,
+  link: Sequelize.STRING
 }, {
   charset: 'utf8mb4',
   underscored: true

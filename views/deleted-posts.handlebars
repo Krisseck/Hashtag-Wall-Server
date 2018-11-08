@@ -1,0 +1,12 @@
+<table class="table" id="deleted-posts-table">
+  <tr>
+    <th>Timestamp</th>
+    <th>Type</th>
+    <th>ID</th>
+    <th>Link</th>
+    <th>Actions</th>
+  </tr>
+  {{#each deletedPosts }}
+    {{> deletedPostRow }}
+  {{/each}}
+</table>

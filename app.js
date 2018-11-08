@@ -50,7 +50,7 @@ var DeletedPost = databaseModels.DeletedPost;
 var IgnoredUser = databaseModels.IgnoredUser;
 
 app.get('/', function (req, res) {
-  res.send('Hello World!');
+  res.redirect('/posts');
 });
 
 app.get('/posts', function (req, res) {
@@ -156,7 +156,8 @@ app.get('/admin/delete/:id', basicAuth(basicAuthOptions), function (req, res) {
 
     return DeletedPost.create({
       type: post.type,
-      source_id: post.source_id
+      source_id: post.source_id,
+      link: post.link
     });
 
   })
@@ -262,12 +263,42 @@ app.post('/admin/ignore-user', basicAuth(basicAuthOptions), function (req, res) 
 
 });
 
-var server = app.listen(config.api.port, function () {
+app.get('/admin/deleted-posts', basicAuth(basicAuthOptions), function (req, res) {
 
-  var host = server.address().address;
-  var port = server.address().port;
+  DeletedPost.findAll({
+    order: [
+      ['created_at', 'DESC']
+    ]
+  })
+  .then(function(posts) {
 
-  console.log('App listening at http://%s:%s', host, port);
+    res.render('deleted-posts', {
+      deletedPosts: posts,
+      navActive: {
+        deletedPosts: true
+      }
+    });
+
+  });
+
+});
+
+app.get('/admin/undelete/:id', basicAuth(basicAuthOptions), function (req, res) {
+
+  DeletedPost.findByPk(req.params.id)
+  .then(function(post) {
+    return post.destroy();
+  })
+  
+  .then(function() {
+    res.redirect("/admin/deleted-posts");
+  });
+
+});
+
+var server = app.listen(config.api.port, config.api.hostname, function () {
+
+  console.log('App listening at http://%s:%s', config.api.hostname, config.api.port);
 
 });
 

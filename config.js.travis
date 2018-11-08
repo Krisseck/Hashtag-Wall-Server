@@ -8,6 +8,7 @@ module.exports = {
   },
   api: {
     port: 8080,
+    hostname: 'localhost',
     username: 'admin',
     password: 'password'
   },
