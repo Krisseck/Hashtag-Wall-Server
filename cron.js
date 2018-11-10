@@ -3,6 +3,18 @@ var twitter = require('./sources/twitter');
 
 var config = require('./config');
 
-twitter.updatePosts();
+if(config.hashtags.twitter != '') {
 
-setInterval(instagram.updatePosts, config.instagram.update_interval);
+  console.log('Enabled Twitter feed');
+
+  twitter.updatePosts();
+
+}
+
+if(config.hashtags.instagram != '') {
+
+  console.log('Enabled Instagram feed');
+
+  setInterval(instagram.updatePosts, config.instagram.update_interval);
+
+}

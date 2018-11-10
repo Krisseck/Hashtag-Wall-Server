@@ -13,13 +13,16 @@ module.exports = {
     password: 'password'
   },
   hashtags: {
+    // To disable any of these sources, set the value to empty
     instagram: 'helsinki',
     twitter: 'helsinki'
   },
   instagram: {
+    // How often to update the feed, in milliseconds
     update_interval: 30000
   },
   twitter: {
+    // Get them from https://apps.twitter.com/
     consumer_key: "twitter consumer key",
     consumer_secret: "twitter consumer secret",
     access_token: "twitter access token",
