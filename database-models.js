@@ -10,7 +10,9 @@ var Post = sequelize.define('post', {
   source_id: Sequelize.BIGINT
 }, {
   charset: 'utf8mb4',
-  underscored: true
+  underscored: true,
+  createdAt: 'created_at',
+  updatedAt: 'updated_at'
 });
 
 var User = sequelize.define('user', {
@@ -21,7 +23,9 @@ var User = sequelize.define('user', {
   source_id: Sequelize.BIGINT
 }, {
   charset: 'utf8mb4',
-  underscored: true
+  underscored: true,
+  createdAt: 'created_at',
+  updatedAt: 'updated_at'
 });
 
 Post.User = Post.belongsTo(User);
@@ -32,7 +36,9 @@ var DeletedPost = sequelize.define('deleted_post', {
   link: Sequelize.STRING
 }, {
   charset: 'utf8mb4',
-  underscored: true
+  underscored: true,
+  createdAt: 'created_at',
+  updatedAt: 'updated_at'
 });
 
 var IgnoredUser = sequelize.define('ignored_user', {
@@ -41,7 +47,9 @@ var IgnoredUser = sequelize.define('ignored_user', {
   source_id: Sequelize.BIGINT
 }, {
   charset: 'utf8mb4',
-  underscored: true
+  underscored: true,
+  createdAt: 'created_at',
+  updatedAt: 'updated_at'
 });
 
 module.exports = {
