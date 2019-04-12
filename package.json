@@ -15,14 +15,14 @@
     "mysql2": "^1.6.1",
     "request": "^2.88.0",
     "request-promise": "^4.2.2",
-    "sequelize": "^4.41.0",
+    "sequelize": "5.3.2",
     "twit": "^2.2.11"
   },
   "devDependencies": {
     "chai": "^4.2.0",
     "chai-http": "^4.2.0",
     "mocha": "^5.2.0",
-    "nodemon": "^1.18.5"
+    "nodemon": "^1.18.11"
   },
   "scripts": {
     "dev": "nodemon app.js",
