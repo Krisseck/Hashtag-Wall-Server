@@ -28,7 +28,7 @@ var User = sequelize.define('user', {
   updatedAt: 'updated_at'
 });
 
-Post.User = Post.belongsTo(User);
+Post.User = Post.belongsTo(User, {foreignKey: 'user_id'});
 
 var DeletedPost = sequelize.define('deleted_post', {
   type: Sequelize.INTEGER(1),
