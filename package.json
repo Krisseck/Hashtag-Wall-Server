@@ -15,7 +15,7 @@
     "mysql2": "^1.6.1",
     "request": "^2.88.0",
     "request-promise": "^4.2.2",
-    "sequelize": "5.3.2",
+    "sequelize": "5.15.1",
     "twit": "^2.2.11"
   },
   "devDependencies": {
