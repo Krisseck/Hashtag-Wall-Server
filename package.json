@@ -9,7 +9,7 @@
     "express": "^4.16.4",
     "express-basic-auth": "1.1.7",
     "express-handlebars": "^3.0.0",
-    "handlebars": "4.0.14",
+    "handlebars": "4.3.0",
     "handlebars-paginate": "^0.1.0",
     "md5": "^2.2.1",
     "mysql2": "^1.6.1",
