@@ -4,7 +4,7 @@
   "description": "Hashtag Wall Server",
   "main": "app.js",
   "dependencies": {
-    "async": "^2.6.1",
+    "async": "^2.6.4",
     "cors": "^2.8.4",
     "express": "^4.16.4",
     "express-basic-auth": "1.1.7",
