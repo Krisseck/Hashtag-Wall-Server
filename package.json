@@ -6,7 +6,7 @@
   "dependencies": {
     "async": "^2.6.1",
     "cors": "^2.8.4",
-    "express": "^4.16.4",
+    "express": "^4.17.3",
     "express-basic-auth": "1.1.7",
     "express-handlebars": "^3.0.0",
     "handlebars": "4.0.14",
