@@ -25,7 +25,7 @@ Admin: http://hashtag.polso.info:8080/admin (username: admin, password: password
 
 ## Requirements
 
-* Tested with **Node.js v10.13.0 (LTS)**, should work with other 10.x versions aswell.
+* Tested with **Node.js v18.12.1 (LTS)**, should work with other 18.x versions aswell.
 * [Yarn](https://yarnpkg.com/)
 * MySQL-server
 
