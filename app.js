@@ -1,4 +1,5 @@
 var Sequelize = require('sequelize');
+var axios = require("axios");
 var express = require('express');
 var cors = require('cors');
 var basicAuth = require('express-basic-auth');
@@ -29,10 +30,8 @@ var hbs = exphbs.create({
       switch(type) {
         case 1:
           return 'Instagram';
-        break;
         case 2:
           return 'Twitter';
-        break;
       }
     },
     paginate: paginate
@@ -92,6 +91,34 @@ app.get('/posts/:time', function (req, res) {
     res.json(posts);
 
   });
+
+});
+
+app.get('/image-proxy/:url', function (req, res) {
+
+  axios.get(req.params.url, {
+    responseType: 'stream'
+  })
+      .then(response => {
+        for (const key in response.headers) {
+          if (response.headers.hasOwnProperty(key)) {
+            const element = response.headers[key];
+            res.header(key, element);
+          }
+        }
+        res.status(response.status);
+        response.data.pipe(res);
+      })
+      .catch(({ response }) => {
+        for (const key in response.headers) {
+          if (response.headers.hasOwnProperty(key)) {
+            const element = response.headers[key];
+            res.header(key, element);
+          }
+        }
+        res.status(response.status);
+        response.data.pipe(res);
+      });
 
 });
 
@@ -164,7 +191,7 @@ app.get('/admin/delete/:id', basicAuth(basicAuthOptions), function (req, res) {
   .then(function() {
     return postToBeDeleted.destroy();
   })
-  
+
   .then(function() {
     res.redirect("/admin");
   });
@@ -289,14 +316,14 @@ app.get('/admin/undelete/:id', basicAuth(basicAuthOptions), function (req, res) 
   .then(function(post) {
     return post.destroy();
   })
-  
+
   .then(function() {
     res.redirect("/admin/deleted-posts");
   });
 
 });
 
-var server = app.listen(config.api.port, config.api.hostname, function () {
+app.listen(config.api.port, config.api.hostname, function () {
 
   console.log('App listening at http://%s:%s', config.api.hostname, config.api.port);
 
