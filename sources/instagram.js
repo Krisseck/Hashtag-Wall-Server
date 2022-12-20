@@ -1,5 +1,4 @@
 var axios = require('axios');
-var md5 = require('md5');
 var async = require('async');
 
 var config = require('../config');
@@ -10,8 +9,6 @@ var Post = databaseModels.Post;
 var User = databaseModels.User;
 var DeletedPost = databaseModels.DeletedPost;
 var IgnoredUser = databaseModels.IgnoredUser;
-
-var rhx_gis = null;
 
 var handledPost = null;
 
@@ -129,13 +126,15 @@ function updateSinglePost(item, callback) {
 
       // Get the post JSON for user metadata
 
-      return requestPromise({
-        method: 'GET',
-        url: 'https://www.instagram.com/p/'+item.node.shortcode+'/?__a=1',
-        headers: {
-          'x-instagram-gis': md5(rhx_gis+":/p/"+item.node.shortcode+"/")
-        }
-      });
+      return axios.post('https://www.instagram.com/graphql/query?query_hash=7c16654f22c819fb63d1183034a5162f',
+          {
+            user_id: item.node.owner.id,
+            include_chaining: false,
+            include_reel: true,
+            include_suggested_users: false,
+            include_logged_out_extras: false,
+            include_highlight_reels: false
+          });
 
     } else {
 
@@ -148,24 +147,16 @@ function updateSinglePost(item, callback) {
     }
 
   })
-  .then(function(body) {
+  .then(function(response) {
 
-    var postMetadataJson = {};
-
-    try {
-      postMetadataJson = JSON.parse(body);
-    } catch (e) {
-      throw new Error("Failed to parse JSON for single post " + item.node.shortcode);
-    }
-
-    if(Object.keys(postMetadataJson).length > 0) {
+    if(Object.keys(response.data).length > 0) {
 
       return User.create({
         type: config.POST_TYPE_INSTAGRAM,
-        source_id: postMetadataJson.graphql.shortcode_media.owner.id,
-        avatar: postMetadataJson.graphql.shortcode_media.owner.profile_pic_url,
-        username: postMetadataJson.graphql.shortcode_media.owner.username,
-        display_name: postMetadataJson.graphql.shortcode_media.owner.full_name
+        source_id: response.data.data.user.reel.owner.id,
+        avatar: response.data.data.user.reel.owner.profile_pic_url,
+        username: response.data.data.user.reel.owner.username,
+        display_name: response.data.data.user.reel.owner.username
       });
 
     } else {

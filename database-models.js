@@ -4,7 +4,7 @@ var sequelize = require('./db').db();
 
 var Post = sequelize.define('post', {
   link: Sequelize.STRING,
-  image: Sequelize.STRING,
+  image: Sequelize.STRING(512),
   caption: Sequelize.TEXT,
   type: Sequelize.INTEGER(1),
   source_id: Sequelize.BIGINT
@@ -18,7 +18,7 @@ var Post = sequelize.define('post', {
 var User = sequelize.define('user', {
   username: Sequelize.STRING,
   display_name: Sequelize.STRING,
-  avatar: Sequelize.STRING,
+  avatar: Sequelize.STRING(512),
   type: Sequelize.INTEGER(1),
   source_id: Sequelize.BIGINT
 }, {
