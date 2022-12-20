@@ -4,6 +4,7 @@
   "description": "Hashtag Wall Server",
   "main": "app.js",
   "dependencies": {
+    "@handlebars/allow-prototype-access": "^1.0.5",
     "async": "^2.6.4",
     "axios": "^1.2.1",
     "cors": "^2.8.4",

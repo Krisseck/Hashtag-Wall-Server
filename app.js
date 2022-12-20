@@ -3,7 +3,9 @@ var axios = require("axios");
 var express = require('express');
 var cors = require('cors');
 var basicAuth = require('express-basic-auth');
+var Handlebars = require('handlebars');
 var exphbs = require('express-handlebars');
+var {allowInsecurePrototypeAccess} = require('@handlebars/allow-prototype-access');
 var paginate = require('handlebars-paginate');
 var app = express();
 
@@ -22,6 +24,7 @@ basicAuthOptions.users[config.api.username] = config.api.password;
 
 var hbs = exphbs.create({
   defaultLayout: 'admin',
+  handlebars: allowInsecurePrototypeAccess(Handlebars),
   helpers: {
     formatDate: function(date) {
       return date.toLocaleString('en-US');
