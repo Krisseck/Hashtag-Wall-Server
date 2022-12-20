@@ -1,4 +1,4 @@
-var requestPromise = require('request-promise');
+var axios = require('axios');
 var md5 = require('md5');
 var async = require('async');
 
@@ -18,46 +18,16 @@ var handledPost = null;
 module.exports = {
   updatePosts: function() {
 
-    // Get homepage for rhx_gis
+    axios.post('https://www.instagram.com/graphql/query?query_hash=9b498c08113f1e09617a1703c22b2f32',
+        {
+          tag_name: config.hashtags.instagram,
+          first: 50
+        })
+    .then(function(response) {
 
-    requestPromise({
-      method: 'GET',
-      url: 'https://www.instagram.com/',
-    })
-    .then(function(body) {
+      if(Object.keys(response.data).length > 0) {
 
-      rhx_gis = body.substring(body.lastIndexOf("\"rhx_gis\":\"")+11, body.lastIndexOf("\",\"nonce\""));
-
-      if(rhx_gis != null) {
-
-        return requestPromise({
-          method: 'GET',
-          url: 'https://www.instagram.com/explore/tags/'+config.hashtags.instagram+'/?__a=1',
-          headers: {
-            'x-instagram-gis': md5(rhx_gis+":/explore/tags/"+config.hashtags.instagram+"/")
-          }
-        });
-
-      } else {
-
-        throw new Error('Could not get rhx_gis');
-
-      }
-
-    })
-    .then(function(body) {
-
-      var postsJson = {};
-
-      try {
-        postsJson = JSON.parse(body);
-      } catch (e) {
-        throw new Error('Failed to parse JSON');
-      }
-
-      if(Object.keys(postsJson).length > 0) {
-
-        async.eachSeries(postsJson.graphql.hashtag.edge_hashtag_to_media.edges, updateSinglePost);
+        async.eachSeries(response.data.data.hashtag.edge_hashtag_to_media.edges, updateSinglePost);
 
       }
 
@@ -67,7 +37,6 @@ module.exports = {
     });
 
   }
-
 }
 
 function updateSinglePost(item, callback) {

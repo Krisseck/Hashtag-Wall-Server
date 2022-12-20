@@ -5,6 +5,7 @@
   "main": "app.js",
   "dependencies": {
     "async": "^2.6.4",
+    "axios": "^1.2.1",
     "cors": "^2.8.4",
     "express": "^4.17.3",
     "express-basic-auth": "1.1.7",
@@ -14,7 +15,6 @@
     "md5": "^2.2.1",
     "mysql2": "^1.6.1",
     "request": "^2.88.0",
-    "request-promise": "^4.2.2",
     "sequelize": "^5.15.1",
     "twit": "^2.2.11"
   },
